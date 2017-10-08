@@ -17,15 +17,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textView.isEditable = false
         return textView
     }()
+    private let prompt: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Type JavaScript code here"
+        textField.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        textField.font = UIFont(name: "Menlo", size: 14)
+        textField.autocapitalizationType = .none
+        textField.smartDashesType = .no
+        textField.smartQuotesType = .no
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
+        textField.clearButtonMode = .always
+        textField.enablesReturnKeyAutomatically = true
+        return textField
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let textField = UITextField()
-        textField.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        textField.font = UIFont(name: "Menlo", size: 14)
-        textField.delegate = self
-        let stackView = UIStackView(arrangedSubviews: [self.textView, textField])
+        self.prompt.delegate = self
+        let stackView = UIStackView(arrangedSubviews: [self.textView, self.prompt])
         stackView.axis = .vertical
         self.view = stackView
     }
@@ -33,7 +44,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { fatalError() }
         textField.text?.removeAll()
-        let jsValue = context.perform(Selector("evaluateScript:"), with: text).takeUnretainedValue()
+        let jsValue = self.context.perform(Selector("evaluateScript:"), with: text).takeUnretainedValue()
         guard let string = jsValue.perform(Selector("toString")).takeRetainedValue() as? String else { fatalError() }
         
         DispatchQueue.main.async {
