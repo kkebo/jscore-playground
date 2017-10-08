@@ -35,6 +35,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.context.setValue({ (_, exception: NSObject!) in
+            guard let string = exception.perform(Selector("toString")).takeUnretainedValue() as? String else { fatalError() }
+            DispatchQueue.main.async {
+                self.textView.text = self.textView.text.appending(string).appending("\n")
+            }
+        } as @convention(block) (NSObject?, NSObject?) -> Void, forKey: "exceptionHandler")
+        
         self.prompt.delegate = self
         let stackView = UIStackView(arrangedSubviews: [self.textView, self.prompt])
         stackView.axis = .vertical
