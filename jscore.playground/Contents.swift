@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         
         self.context.setValue({ (_, exception: NSObject!) in
             guard let string = exception.perform(Selector("toString")).takeUnretainedValue() as? String else { fatalError() }
-            self.appendCell(string, type: .error)
+            self.appendCell("❌ \(string)", type: .error)
         } as @convention(block) (NSObject?, NSObject?) -> Void, forKey: "exceptionHandler")
         
         self.prompt.delegate = self
