@@ -49,13 +49,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = textField.text else { fatalError() }
-        textField.text?.removeAll()
-        let jsValue = self.context.perform(Selector("evaluateScript:"), with: text).takeUnretainedValue()
-        guard let string = jsValue.perform(Selector("toString")).takeRetainedValue() as? String else { fatalError() }
+        guard let script = textField.text else { fatalError() }
         
         DispatchQueue.main.async {
-            self.textView.text = self.textView.text.appending("> \(text)").appending("\n").appending(string).appending("\n")
+            self.textView.text = self.textView.text.appending("> \(script)").appending("\n")
+            self.textView.scrollRangeToVisible(NSMakeRange(self.textView.text?.count ?? 0, 0))
+        }
+        
+        textField.text?.removeAll()
+        let jsValue = self.context.perform(Selector("evaluateScript:"), with: script).takeUnretainedValue()
+        guard let result = jsValue.perform(Selector("toString")).takeRetainedValue() as? String else { fatalError() }
+        
+        DispatchQueue.main.async {
+            self.textView.text = self.textView.text.appending(result).appending("\n")
             self.textView.scrollRangeToVisible(NSMakeRange(self.textView.text?.count ?? 0, 0))
         }
         
