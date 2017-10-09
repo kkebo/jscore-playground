@@ -5,8 +5,13 @@ Bundle(path: "/System/Library/Frameworks/JavaScriptCore.framework")?.load()
 let JSContextClass = NSClassFromString("JSContext") as? NSObject.Type
 
 struct Log {
+    enum LogType {
+        case input
+        case value
+        case error
+    }
     public let text: String
-    public let backgroundColor: UIColor?
+    public let type: LogType
 }
 
 class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource {
@@ -39,7 +44,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         
         self.context.setValue({ (_, exception: NSObject!) in
             guard let string = exception.perform(Selector("toString")).takeUnretainedValue() as? String else { fatalError() }
-            self.appendCell(string, color: #colorLiteral(red: 0.95686274766922, green: 0.658823549747467, blue: 0.545098066329956, alpha: 1.0))
+            self.appendCell(string, type: .error)
         } as @convention(block) (NSObject?, NSObject?) -> Void, forKey: "exceptionHandler")
         
         self.prompt.delegate = self
@@ -51,8 +56,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         self.view = stackView
     }
     
-    func appendCell(_ text: String, color: UIColor?) {
-        let log = Log(text: text, backgroundColor: color)
+    func appendCell(_ text: String, type: Log.LogType) {
+        let log = Log(text: text, type: type)
         self.results.append(log)
         self.tableView.reloadData()
         self.tableView.scrollToRow(at: IndexPath(row: self.results.count - 1, section: 0), at: .top, animated: true)
@@ -63,13 +68,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let script = textField.text else { fatalError() }
         
-        self.appendCell("> \(script)", color: nil)
+        self.appendCell("> \(script)", type: .input)
         
         textField.text?.removeAll()
         let jsValue = self.context.perform(Selector("evaluateScript:"), with: script).takeUnretainedValue()
         guard let result = jsValue.perform(Selector("toString")).takeRetainedValue() as? String else { fatalError() }
         
-        self.appendCell(result, color: nil)
+        self.appendCell("< \(result)", type: .value)
         
         return false
     }
@@ -79,7 +84,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = self.results[indexPath.row]
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.backgroundColor = item.backgroundColor ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        switch item.type {
+        case .input:
+            cell.textLabel?.textColor = #colorLiteral(red: 0.176470592617989, green: 0.498039215803146, blue: 0.756862759590149, alpha: 1.0)
+        case .error:
+            cell.backgroundColor = #colorLiteral(red: 0.95686274766922, green: 0.658823549747467, blue: 0.545098066329956, alpha: 1.0)
+        default:
+            break
+        }
         cell.textLabel?.font = UIFont(name: "Menlo", size: 14)
         cell.textLabel?.text = item.text
         return cell
