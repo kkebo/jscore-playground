@@ -36,6 +36,15 @@ class ViewController: UIViewController {
         textField.spellCheckingType = .no
         textField.clearButtonMode = .always
         textField.enablesReturnKeyAutomatically = true
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        label.text = ">"
+        label.textAlignment = .center
+        label.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.textColor = #colorLiteral(red: 0.176470592617989, green: 0.498039215803146, blue: 0.756862759590149, alpha: 1.0)
+        textField.leftView = label
+        textField.leftViewMode = .always
+        
         return textField
     }()
     
@@ -44,7 +53,7 @@ class ViewController: UIViewController {
         
         self.context.setValue({ (_, exception: NSObject!) in
             guard let string = exception.perform(Selector("toString")).takeUnretainedValue() as? String else { fatalError() }
-            self.appendCell("❌ \(string)", type: .error)
+            self.appendCell("❌ (string)", type: .error)
         } as @convention(block) (NSObject?, NSObject?) -> Void, forKey: "exceptionHandler")
         
         self.prompt.delegate = self
@@ -68,13 +77,13 @@ extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let script = textField.text else { fatalError() }
         
-        self.appendCell("> \(script)", type: .input)
+        self.appendCell("> (script)", type: .input)
         
         textField.text?.removeAll()
         let jsValue = self.context.perform(Selector("evaluateScript:"), with: script).takeUnretainedValue()
         guard let result = jsValue.perform(Selector("toString")).takeRetainedValue() as? String else { fatalError() }
         
-        self.appendCell("< \(result)", type: .value)
+        self.appendCell("< (result)", type: .value)
         
         return false
     }
