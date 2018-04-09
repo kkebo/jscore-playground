@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         
         self.context.setValue({ (_, exception: NSObject!) in
             guard let string = exception.perform(Selector("toString")).takeUnretainedValue() as? String else { fatalError() }
-            self.appendCell("❌ (string)", type: .error)
+            self.appendCell("❌ \(string)", type: .error)
         } as @convention(block) (NSObject?, NSObject?) -> Void, forKey: "exceptionHandler")
         
         self.prompt.delegate = self
@@ -77,13 +77,13 @@ extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let script = textField.text else { fatalError() }
         
-        self.appendCell("> (script)", type: .input)
+        self.appendCell("> \(script)", type: .input)
         
         textField.text?.removeAll()
         let jsValue = self.context.perform(Selector("evaluateScript:"), with: script).takeUnretainedValue()
         guard let result = jsValue.perform(Selector("toString")).takeRetainedValue() as? String else { fatalError() }
         
-        self.appendCell("< (result)", type: .value)
+        self.appendCell("< \(result)", type: .value)
         
         return false
     }
