@@ -14,7 +14,7 @@ struct Log {
     public let type: LogType
 }
 
-class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource {
+class ViewController: UIViewController {
     var context: NSObject = {
         guard let instance = JSContextClass?.init() as? NSObject else { fatalError() }
         return instance
@@ -62,9 +62,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         self.tableView.reloadData()
         self.tableView.scrollToRow(at: IndexPath(row: self.results.count - 1, section: 0), at: .top, animated: true)
     }
-    
-    // MARK: UITextFieldDelegate
-    
+}
+
+extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let script = textField.text else { fatalError() }
         
@@ -78,9 +78,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         
         return false
     }
-    
-    // MARK: UITableViewDataSource
-    
+}
+
+extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = self.results[indexPath.row]
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
