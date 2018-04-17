@@ -81,7 +81,7 @@ extension ViewController: UITextFieldDelegate {
         
         textField.text?.removeAll()
         let jsValue = self.context.perform(Selector("evaluateScript:"), with: script).takeUnretainedValue()
-        guard let result = jsValue.perform(Selector("toString")).takeRetainedValue() as? String else { fatalError() }
+        guard let result = jsValue.perform(Selector("toString")).takeUnretainedValue() as? String else { fatalError() }
         
         self.appendCell("< \(result)", type: .value)
         
