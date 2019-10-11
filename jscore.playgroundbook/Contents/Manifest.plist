@@ -11,15 +11,15 @@
 	<key>ContentVersion</key>
 	<string>1.0</string>
 	<key>DeploymentTarget</key>
-	<string>ios12.2</string>
+	<string>ios-current</string>
 	<key>DevelopmentRegion</key>
 	<string>en</string>
 	<key>Name</key>
-	<string>Blank</string>
+	<string>jscore</string>
 	<key>SwiftVersion</key>
-	<string>5.0</string>
+	<string>5.1</string>
 	<key>Version</key>
-	<string>6.0</string>
+	<string>7.0</string>
 	<key>UserAutoImportedAuxiliaryModules</key>
 	<array/>
 	<key>UserModuleMode</key>

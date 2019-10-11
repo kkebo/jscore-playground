@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Name</key>
-	<string>My Playground</string>
+	<string>jscore</string>
 	<key>TemplatePageFilename</key>
 	<string>Template.playgroundpage</string>
 	<key>InitialUserPages</key>

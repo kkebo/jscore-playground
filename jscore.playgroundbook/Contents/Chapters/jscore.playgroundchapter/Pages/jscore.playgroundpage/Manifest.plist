@@ -5,10 +5,19 @@
 	<key>Name</key>
 	<string>jscore</string>
 	<key>LiveViewEdgeToEdge</key>
-	<false/>
+	<true/>
 	<key>LiveViewMode</key>
 	<string>VisibleByDefault</string>
 	<key>PlaygroundLoggingMode</key>
 	<string>Off</string>
+	<key>UserModuleSourceFilesToOpen</key>
+	<array>
+		<string>UserModules/JavaScriptCoreWrapper.playgroundmodule/Sources/JavaScriptCore.swift</string>
+		<string>UserModules/Views.playgroundmodule/Sources/ConsoleView.swift</string>
+		<string>UserModules/Views.playgroundmodule/Sources/ConsoleMessageCell.swift</string>
+		<string>UserModules/Views.playgroundmodule/Sources/CommandLine.swift</string>
+		<string>UserModules/ViewModels.playgroundmodule/Sources/ConsoleViewModel.swift</string>
+		<string>UserModules/Models.playgroundmodule/Sources/ConsoleMessage.swift</string>
+	</array>
 </dict>
 </plist>
