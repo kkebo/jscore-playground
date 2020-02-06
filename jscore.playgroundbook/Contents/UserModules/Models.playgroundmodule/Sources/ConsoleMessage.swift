@@ -15,3 +15,5 @@ public struct ConsoleMessage {
         self.type = type
     }
 }
+
+extension ConsoleMessage: Hashable {}
