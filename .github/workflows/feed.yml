@@ -24,7 +24,7 @@ jobs:
         PUBLISHER_NAME: Kenta Kubo
         FEED_IDENTIFIER: xyz.kebo.playgroundbook.jscore
         CONTACT_URL: https://kebo.xyz
-        DOCUMENT_TITLE: SF Symbols Viewer
+        DOCUMENT_TITLE: jscore
         DOCUMENT_OVERVIEW_SUBTITLE: JavaScriptCore examples
         DOCUMENT_DESCRIPTION: JavaScriptCore examples
         DOCUMENT_CONTENT_IDENTIFIER: xyz.kebo.playgroundbook.jscore.jscore
