@@ -10,10 +10,8 @@ public struct ConsoleView: View {
 
     public var body: some View {
         VStack {
-            List {
-                ForEach(self.viewModel.messages, id: \.self) {
-                    ConsoleMessageCell(message: $0)
-                }
+            List(self.viewModel.messages, id: \.self) {
+                ConsoleMessageCell(message: $0)
             }
             HStack {
                 Image(systemName: "greaterthan")
