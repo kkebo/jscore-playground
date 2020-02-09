@@ -1,0 +1,31 @@
+{
+    "title": "JavaScriptCore Playground Book",
+    "subtitle": "JavaScriptCore examples",
+    "publisherName": "Kenta Kubo",
+    "feedIdentifier": "xyz.kebo.playgroundbook.jscore",
+    "contactURL": "https://kebo.xyz",
+    "formatVersion": "1.2",
+    "documents": [
+        {
+            "title": "SF Symbols Viewer",
+            "overviewSubtitle": "JavaScriptCore examples",
+            "description": "JavaScriptCore examples",
+            "contentIdentifier": "xyz.kebo.playgroundbook.jscore.jscore",
+            "contentVersion": "1.0.0",
+            "url": "https://kebo.xyz/jscore-playground/jscore.playgroundbook.zip",
+            "publishedDate": "2020-02-10T03:26:00+0900",
+            "lastUpdatedDate": "2020-02-09T18:44:50+00:00",
+            "thumbnailURL": "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.0.0/images/thumbnail.png",
+            "bannerImageURL": "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.0.0/images/banner.png",
+            "previewImageURLs": [
+                "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.0.0/images/preview.png"
+            ],
+            "additionalInformation": [
+                {
+                    "name": "Languages",
+                    "value": "English"
+                }
+            ]
+        }
+    ]
+}
