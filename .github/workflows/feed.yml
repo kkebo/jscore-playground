@@ -1,0 +1,78 @@
+name: Publish feed.json
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Install SSH Client
+      uses: webfactory/ssh-agent@v0.2.0
+      with:
+        ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+    - name: Build
+      env:
+        TITLE: JavaScriptCore Playground Book
+        SUBTITLE: JavaScriptCore examples
+        PUBLISHER_NAME: Kenta Kubo
+        FEED_IDENTIFIER: xyz.kebo.playgroundbook.jscore
+        CONTACT_URL: https://kebo.xyz
+        DOCUMENT_TITLE: SF Symbols Viewer
+        DOCUMENT_OVERVIEW_SUBTITLE: JavaScriptCore examples
+        DOCUMENT_DESCRIPTION: JavaScriptCore examples
+        DOCUMENT_CONTENT_IDENTIFIER: xyz.kebo.playgroundbook.jscore.jscore
+        DOCUMENT_URL: https://kebo.xyz/jscore-playground/jscore.playgroundbook.zip
+        PLAYGROUNDBOOK_FILENAME: jscore.playgroundbook
+      run: |
+        zip -r "${PLAYGROUNDBOOK_FILENAME}.zip" "${PLAYGROUNDBOOK_FILENAME}"
+        DOCUMENT_PUBLISHED_DATE=2020-02-10T03:26:00+0900
+        DOCUMENT_LAST_UPDATED_DATE=$(date -Iseconds)
+        TAG_NAME=$(echo $GITHUB_REF | sed -e 's/refs\/tags\///g')
+        DOCUMENT_CONTENT_VERSION=$(echo $TAG_NAME | cut -c 2-)
+        cat > feed.json << EOF
+        {
+            "title": "${TITLE}",
+            "subtitle": "${SUBTITLE}",
+            "publisherName": "${PUBLISHER_NAME}",
+            "feedIdentifier": "${FEED_IDENTIFIER}",
+            "contactURL": "${CONTACT_URL}",
+            "formatVersion": "1.2",
+            "documents": [
+                {
+                    "title": "${DOCUMENT_TITLE}",
+                    "overviewSubtitle": "${DOCUMENT_OVERVIEW_SUBTITLE}",
+                    "description": "${DOCUMENT_DESCRIPTION}",
+                    "contentIdentifier": "${DOCUMENT_CONTENT_IDENTIFIER}",
+                    "contentVersion": "${DOCUMENT_CONTENT_VERSION}",
+                    "url": "${DOCUMENT_URL}",
+                    "publishedDate": "${DOCUMENT_PUBLISHED_DATE}",
+                    "lastUpdatedDate": "${DOCUMENT_LAST_UPDATED_DATE}",
+                    "thumbnailURL": "https://raw.githubusercontent.com/kkk669/jscore-playground/${TAG_NAME}/images/thumbnail.png",
+                    "bannerImageURL": "https://raw.githubusercontent.com/kkk669/jscore-playground/${TAG_NAME}/images/banner.png",
+                    "previewImageURLs": [
+                        "https://raw.githubusercontent.com/kkk669/jscore-playground/${TAG_NAME}/images/preview.png"
+                    ],
+                    "additionalInformation": [
+                        {
+                            "name": "Languages",
+                            "value": "English"
+                        }
+                    ]
+                }
+            ]
+        }
+        EOF
+        mkdir public && mv "${PLAYGROUNDBOOK_FILENAME}.zip" feed.json public/
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        SSH: true
+        BRANCH: gh-pages
+        FOLDER: public

@@ -7,15 +7,17 @@
 		<string>jscore.playgroundchapter</string>
 	</array>
 	<key>ContentIdentifier</key>
-	<string>com.kebo.playgrondbook.jscore</string>
+	<string>xyz.kebo.playgrondbook.jscore.jscore</string>
 	<key>ContentVersion</key>
-	<string>1.0</string>
+	<string>1.0.0</string>
 	<key>DeploymentTarget</key>
 	<string>ios-current</string>
 	<key>DevelopmentRegion</key>
 	<string>en</string>
 	<key>Name</key>
 	<string>jscore</string>
+	<key>ImageReference</key>
+    <string>cover.png</string>
 	<key>SwiftVersion</key>
 	<string>5.1</string>
 	<key>Version</key>

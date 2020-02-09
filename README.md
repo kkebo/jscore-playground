@@ -7,4 +7,6 @@
 
 This is a JavaScript REPL example using JavaScriptCore. It can run on Swift Playgrounds for iPad.
 
+[Subscribe to the feed on your iPad](https://developer.apple.com/ul/sp0?url=https://kebo.xyz/jscore-playground/feed.json)
+
 ![](https://i.imgur.com/RNvzTmN.png)
