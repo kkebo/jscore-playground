@@ -14,7 +14,7 @@ public struct CommandLine {
 
 extension CommandLine: UIViewRepresentable {
     public func makeCoordinator() -> Self.Coordinator {
-        Coordinator(text: self.$text, onReturn: self.onReturn)
+        Self.Coordinator(text: self.$text, onReturn: self.onReturn)
     }
 
     public func makeUIView(context: Self.Context) -> UITextField {
