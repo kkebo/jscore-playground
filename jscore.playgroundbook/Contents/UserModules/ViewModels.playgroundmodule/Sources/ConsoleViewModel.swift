@@ -3,7 +3,7 @@ import Dispatch
 import JavaScriptCoreWrapper
 import Models
 
-public class ConsoleViewModel: ObservableObject {
+public final class ConsoleViewModel {
     @Published public var input = ""
     @Published public var messages = [ConsoleMessage]()
 
@@ -25,3 +25,5 @@ public class ConsoleViewModel: ObservableObject {
         self.input = ""
     }
 }
+
+extension ConsoleViewModel: ObservableObject {}

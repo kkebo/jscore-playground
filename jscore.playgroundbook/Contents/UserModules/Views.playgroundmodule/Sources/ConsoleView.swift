@@ -1,13 +1,15 @@
 import SwiftUI
 import ViewModels
 
-public struct ConsoleView: View {
+public struct ConsoleView {
     @ObservedObject var viewModel: ConsoleViewModel
 
     public init(viewModel: ConsoleViewModel) {
         self.viewModel = viewModel
     }
+}
 
+extension ConsoleView: View {
     public var body: some View {
         VStack {
             List(self.viewModel.messages, id: \.self) {

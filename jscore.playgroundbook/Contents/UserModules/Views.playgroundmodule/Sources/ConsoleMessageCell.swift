@@ -1,7 +1,7 @@
 import SwiftUI
 import Models
 
-public struct ConsoleMessageCell: View {
+public struct ConsoleMessageCell {
     let systemName: String
     let text: String
     let iconColor: Color?
@@ -44,7 +44,9 @@ public struct ConsoleMessageCell: View {
             self.rowBackground = Color.red.opacity(0.2)
         }
     }
+}
 
+extension ConsoleMessageCell: View {
     public var body: some View {
         HStack {
             Image(systemName: self.systemName)

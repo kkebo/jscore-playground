@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct CommandLine: UIViewRepresentable {
+public struct CommandLine {
     @Binding var text: String
     let placeholder: String
     let onReturn: () -> Void
@@ -10,25 +10,27 @@ public struct CommandLine: UIViewRepresentable {
         self._text = text
         self.onReturn = onReturn
     }
+}
 
-    public func makeCoordinator() -> Coordinator {
-        return Coordinator(text: self.$text, onReturn: self.onReturn)
+extension CommandLine: UIViewRepresentable {
+    public func makeCoordinator() -> Self.Coordinator {
+        Coordinator(text: self.$text, onReturn: self.onReturn)
     }
 
-    public func makeUIView(context: UIViewRepresentableContext<CommandLine>) -> UITextField {
+    public func makeUIView(context: Self.Context) -> UITextField {
         let textField = UITextField(frame: .zero)
         textField.delegate = context.coordinator
         textField.placeholder = self.placeholder
         return textField
     }
 
-    public func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<CommandLine>) {
+    public func updateUIView(_ uiView: UITextField, context: Self.Context) {
         uiView.text = self.text
     }
 }
 
 extension CommandLine {
-    public class Coordinator: NSObject, UITextFieldDelegate {
+    public final class Coordinator: NSObject {
         @Binding var text: String
         let onReturn: () -> Void
 
@@ -36,13 +38,15 @@ extension CommandLine {
             self._text = text
             self.onReturn = onReturn
         }
+    }
+}
 
-        public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            self.text = textField.text ?? ""
-            if text.count > 0 {
-                self.onReturn()
-            }
-            return false
+extension CommandLine.Coordinator: UITextFieldDelegate {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.text = textField.text ?? ""
+        if text.count > 0 {
+            self.onReturn()
         }
+        return false
     }
 }

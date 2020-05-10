@@ -1,11 +1,11 @@
 import Foundation
 
-let JSContextClass = { () -> NSObject.Type in 
+let JSContextClass = { () -> NSObject.Type in
     Bundle(path: "/System/Library/Frameworks/JavaScriptCore.framework")!.load()
     return NSClassFromString("JSContext") as! NSObject.Type
 }()
 
-public class JSValue {
+public final class JSValue {
     let rawValue: AnyObject
 
     init(from jsValue: AnyObject) {
@@ -17,7 +17,7 @@ public class JSValue {
     }
 }
 
-public class JSContext {
+public final class JSContext {
     let rawContext: NSObject
     public var exceptionHandler: ((JSContext?, JSValue?) -> Void)? {
         didSet {
