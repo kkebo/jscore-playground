@@ -1,12 +1,16 @@
+import Foundation
+
+public enum MessageType {
+    case input
+    case value
+    case log
+    case info
+    case warn
+    case error
+}
+
 public struct ConsoleMessage {
-    public enum MessageType {
-        case input
-        case value
-        case log
-        case info
-        case warn
-        case error
-    }
+    public let id = UUID()
     public let text: String
     public let type: MessageType
 
@@ -16,4 +20,4 @@ public struct ConsoleMessage {
     }
 }
 
-extension ConsoleMessage: Hashable {}
+extension ConsoleMessage: Identifiable {}

@@ -1,4 +1,5 @@
 import SwiftUI
+import Extensions
 import ViewModels
 
 public struct ConsoleView {
@@ -12,9 +13,12 @@ public struct ConsoleView {
 extension ConsoleView: View {
     public var body: some View {
         VStack {
-            List(self.viewModel.messages, id: \.self) {
+            List(self.viewModel.messages.reversed()) {
                 ConsoleMessageCell(message: $0)
+                    .flip()
             }
+            .flip()
+
             HStack {
                 Image(systemName: "greaterthan")
                 CommandLine("Input here...", text: self.$viewModel.input, onReturn: self.viewModel.run)
