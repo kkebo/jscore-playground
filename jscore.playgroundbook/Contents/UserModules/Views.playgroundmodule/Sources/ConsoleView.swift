@@ -3,11 +3,9 @@ import Extensions
 import ViewModels
 
 public struct ConsoleView {
-    @ObservedObject var viewModel: ConsoleViewModel
+    @ObservedObject var viewModel = ConsoleViewModel()
 
-    public init(viewModel: ConsoleViewModel) {
-        self.viewModel = viewModel
-    }
+    public init() {}
 }
 
 extension ConsoleView: View {
