@@ -9,7 +9,7 @@
 	<key>ContentIdentifier</key>
 	<string>xyz.kebo.playgroundbook.jscore.jscore</string>
 	<key>ContentVersion</key>
-	<string>1.0.1</string>
+	<string>1.1.0</string>
 	<key>DeploymentTarget</key>
 	<string>ios-current</string>
 	<key>DevelopmentRegion</key>
