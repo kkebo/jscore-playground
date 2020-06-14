@@ -63,6 +63,10 @@ public final class ConsoleViewModel {
 
         self.input = ""
     }
+
+    public func clear() {
+        self.messages.removeAll()
+    }
 }
 
 extension ConsoleViewModel: ObservableObject {}
