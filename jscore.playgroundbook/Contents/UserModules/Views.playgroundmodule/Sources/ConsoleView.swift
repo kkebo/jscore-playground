@@ -11,7 +11,19 @@ public struct ConsoleView {
 extension ConsoleView: View {
     public var body: some View {
         VStack {
-            List(self.viewModel.messages.reversed()) {
+            HStack {
+                Spacer()
+                Picker("Log Level", selection: self.$viewModel.logLevel) {
+                    ForEach(LogLevel.allCases, id: \.self) {
+                        Text($0.rawValue)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+                Spacer()
+            }
+
+            List(self.viewModel.filteredReversedMessages) {
                 ConsoleMessageCell(message: $0)
                     .flip()
             }
