@@ -15,6 +15,14 @@ public final class JSValue {
     public func toString() -> String {
         self.rawValue.perform(Selector("toString")).takeUnretainedValue() as! String
     }
+
+    public func objectForKeyedSubscript(_ key: Any) -> JSValue {
+        JSValue(from: self.rawValue.perform("objectForKeyedSubscript:", with: key).takeUnretainedValue())
+    }
+
+    public func setObject(_ object: Any, forKeyedSubscript key: Any) {
+        self.rawValue.perform(Selector("setObject:forKeyedSubscript:"), with: object, with: key)
+    }
 }
 
 public final class JSContext {
@@ -37,5 +45,13 @@ public final class JSContext {
 
     public func evaluateScript(_ script: String) -> JSValue {
         JSValue(from: self.rawContext.perform(Selector("evaluateScript:"), with: script).takeUnretainedValue())
+    }
+
+    public func objectForKeyedSubscript(_ key: Any) -> JSValue {
+        JSValue(from: self.rawContext.perform("objectForKeyedSubscript:", with: key).takeUnretainedValue())
+    }
+
+    public func setObject(_ object: Any, forKeyedSubscript key: NSCopying & NSObjectProtocol) {
+        self.rawContext.perform(Selector("setObject:forKeyedSubscript:"), with: object, with: key)
     }
 }

@@ -22,7 +22,7 @@ public struct ConsoleMessageCell {
             self.iconColor = .gray
             self.textColor = .gray
             self.rowBackground = nil
-        case .log:
+        case .debug, .log:
             self.systemName = ""
             self.iconColor = nil
             self.textColor = nil

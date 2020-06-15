@@ -5,6 +5,7 @@ import Models
 
 public enum LogLevel: String, CaseIterable {
     case all
+    case debug
     case log
     case info
     case warn
@@ -14,6 +15,8 @@ public enum LogLevel: String, CaseIterable {
         switch (self, type) {
         case (_, .input), (_, .value): return true
         case (.all, _): return true
+        case (.debug, .debug), (.debug, .log), (.debug, .info), (.debug, .warn), (.debug, .error):
+            return true
         case (.log, .log), (.log, .info), (.log, .warn), (.log, .error):
             return true
         case (.log, _):
@@ -53,6 +56,36 @@ public final class ConsoleViewModel {
             let string = exception!.toString()
             self.messages.append(ConsoleMessage(text: string, type: .error))
         }
+
+        let log = { type in
+            {
+                self.messages
+                    .append(
+                        ConsoleMessage(
+                            text: $0,
+                            type: type
+                        )
+                    )
+            } as @convention(block) (String) -> Void
+        }
+        let console = self.context
+            .objectForKeyedSubscript("console")
+
+        [
+            "log": MessageType.log,
+            "debug": .debug,
+            "error": .error,
+            "info": .info,
+            "table": .log,
+            "warn": .warn,
+        ]
+        .forEach { (k, v) in
+            console.setObject(log(v), forKeyedSubscript: k)
+        }
+        console.setObject(
+            self.clear as @convention(block) () -> Void,
+            forKeyedSubscript: "clear"
+        )
     }
 
     public func run() {

@@ -3,6 +3,7 @@ import Foundation
 public enum MessageType {
     case input
     case value
+    case debug
     case log
     case info
     case warn
