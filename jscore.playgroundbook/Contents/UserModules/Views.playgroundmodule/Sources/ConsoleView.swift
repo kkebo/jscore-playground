@@ -28,9 +28,11 @@ extension ConsoleView: View {
                 Spacer()
             }
 
-            List(self.viewModel.filteredReversedMessages) {
-                ConsoleMessageCell(message: $0)
-                    .flip()
+            List {
+                ForEach(self.viewModel.filteredReversedMessages) {
+                    ConsoleMessageCell(message: $0)
+                        .flip()
+                }
             }
             .flip()
 
