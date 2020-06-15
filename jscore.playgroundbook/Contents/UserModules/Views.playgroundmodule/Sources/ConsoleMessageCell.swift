@@ -35,7 +35,7 @@ public struct ConsoleMessageCell {
         case .warn:
             self.systemName = "exclamationmark.triangle.fill"
             self.iconColor = .yellow
-            self.textColor = nil
+            self.textColor = .yellow
             self.rowBackground = Color.yellow.opacity(0.2)
         case .error:
             self.systemName = "xmark.circle.fill"
