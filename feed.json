@@ -11,14 +11,14 @@
             "overviewSubtitle": "JavaScriptCore examples",
             "description": "JavaScriptCore examples",
             "contentIdentifier": "xyz.kebo.playgroundbook.jscore.jscore",
-            "contentVersion": "1.3.0",
+            "contentVersion": "1.3.1",
             "url": "https://kebo.xyz/jscore-playground/jscore.playgroundbook.zip",
             "publishedDate": "2020-02-10T03:26:00+0900",
-            "lastUpdatedDate": "2020-06-15T17:26:22+00:00",
-            "thumbnailURL": "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.3.0/images/thumbnail.png",
-            "bannerImageURL": "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.3.0/images/banner.png",
+            "lastUpdatedDate": "2020-12-04T17:19:55+00:00",
+            "thumbnailURL": "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.3.1/images/thumbnail.png",
+            "bannerImageURL": "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.3.1/images/banner.png",
             "previewImageURLs": [
-                "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.3.0/images/preview.png"
+                "https://raw.githubusercontent.com/kkk669/jscore-playground/v1.3.1/images/preview.png"
             ],
             "additionalInformation": [
                 {
