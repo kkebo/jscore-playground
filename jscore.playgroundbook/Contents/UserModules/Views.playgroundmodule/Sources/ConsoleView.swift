@@ -37,7 +37,7 @@ extension ConsoleView: View {
             .flip()
 
             HStack {
-                Image(systemName: "greaterthan")
+                Image(systemName: "chevron.right")
                 CommandLine("Input here...", text: self.$viewModel.input, onReturn: self.viewModel.run)
             }
             .fixedSize(horizontal: false, vertical: true)

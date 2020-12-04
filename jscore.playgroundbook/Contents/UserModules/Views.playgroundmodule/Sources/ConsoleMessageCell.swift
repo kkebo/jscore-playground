@@ -13,7 +13,7 @@ public struct ConsoleMessageCell {
 
         switch message.type {
         case .input:
-            self.systemName = "greaterthan"
+            self.systemName = "chevron.right"
             self.iconColor = nil
             self.textColor = nil
             self.rowBackground = nil
